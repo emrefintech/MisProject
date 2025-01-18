@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}Employee Task Assignments{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h3>Tasks Assigned to Employees</h3>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Employee Name</th>
+                        <th>Task Name</th>
+                        <th>Project</th>
+                        <th>Status</th>
+                        <th>Timeline</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for assignment in assignments %}
+                    <tr>
+                        <td>{{ assignment.FirstName }} {{ assignment.LastName }}</td>
+                        <td>{{ assignment.TaskName }}</td>
+                        <td>{{ assignment.ProjectName }}</td>
+                        <td>
+                            <span class="badge bg-{{ 'success' if assignment.TaskStatus == 'Completed' 
+                                                else 'warning' if assignment.TaskStatus == 'In Progress' 
+                                                else 'secondary' }}">
+                                {{ assignment.TaskStatus }}
+                            </span>
+                        </td>
+                        <td>{{ assignment.StartDate }} - {{ assignment.EndDate }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

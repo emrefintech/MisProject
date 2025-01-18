@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}Tasks{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Tasks</h2>
+    <a href="{{ url_for('task_new') }}" class="btn btn-primary">New Task</a>
+</div>
+
+<div class="table-responsive">
+    <input type="text" id="taskSearch" class="form-control mb-3" placeholder="Search tasks...">
+    <table class="table table-striped" id="taskTable">
+        <thead>
+            <tr>
+                <th>Task Name</th>
+                <th>Project</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Status</th>
+                <th>Assigned To</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.TaskName }}</td>
+                <td>{{ task.ProjectName }}</td>
+                <td>{{ task.StartDate }}</td>
+                <td>{{ task.EndDate }}</td>
+                <td>{{ task.Status }}</td>
+                <td>{{ task.FirstName }} {{ task.LastName }}</td>
+                <td>
+                    <a href="{{ url_for('task_edit', id=task.TaskID) }}" 
+                       class="btn btn-sm btn-primary">Edit</a>
+                    <a href="#" onclick="confirmDelete('{{ task.TaskID }}', 'task')"
+                       class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

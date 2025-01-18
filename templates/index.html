@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Welcome to SynergyFlow</h1>
+    <p class="lead">Project Management Made Simple</p>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Projects</h5>
+                <p class="card-text">Manage your projects efficiently.</p>
+                <a href="{{ url_for('projects') }}" class="btn btn-primary">View Projects</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Employees</h5>
+                <p class="card-text">Manage team members.</p>
+                <a href="{{ url_for('employees') }}" class="btn btn-primary">View Employees</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Tasks</h5>
+                <p class="card-text">Track and manage tasks.</p>
+                <a href="{{ url_for('tasks') }}" class="btn btn-primary">View Tasks</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

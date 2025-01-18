@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ 'Edit' if task else 'New' }} Task{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h3>{{ 'Edit' if task else 'New' }} Task</h3>
+    </div>
+    <div class="card-body">
+        <form method="POST">
+            <div class="mb-3">
+                <label for="name" class="form-label">Task Name</label>
+                <input type="text" class="form-control" id="name" name="name"
+                       value="{{ task.TaskName if task else '' }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" name="description" rows="3">{{ task.Description if task else '' }}</textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="project_id" class="form-label">Project</label>
+                <select class="form-control" id="project_id" name="project_id" required>
+                    <option value="">Select Project</option>
+                    {% for project in projects %}
+                    <option value="{{ project.ProjectID }}"
+                            {% if task and task.ProjectID == project.ProjectID %}selected{% endif %}>
+                        {{ project.ProjectName }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="assigned_to" class="form-label">Assign To</label>
+                <select class="form-control" id="assigned_to" name="assigned_to">
+                    <option value="">Select Employee</option>
+                    {% for employee in employees %}
+                    <option value="{{ employee.EmployeeID }}"
+                            {% if task and task.AssignedEmployeeID == employee.EmployeeID %}selected{% endif %}>
+                        {{ employee.FirstName }} {{ employee.LastName }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="start_date" class="form-label">Start Date</label>
+                <input type="date" class="form-control" id="start_date" name="start_date"
+                       value="{{ task.StartDate if task else '' }}">
+            </div>
+
+            <div class="mb-3">
+                <label for="end_date" class="form-label">End Date</label>
+                <input type="date" class="form-control" id="end_date" name="end_date"
+                       value="{{ task.EndDate if task else '' }}">
+            </div>
+
+            <div class="mb-3">
+                <label for="status" class="form-label">Status</label>
+                <select class="form-control" id="status" name="status" required>
+                    <option value="Not Started" {% if task and task.Status == 'Not Started' %}selected{% endif %}>Not Started</option>
+                    <option value="In Progress" {% if task and task.Status == 'In Progress' %}selected{% endif %}>In Progress</option>
+                    <option value="Completed" {% if task and task.Status == 'Completed' %}selected{% endif %}>Completed</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a href="{{ url_for('tasks') }}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}
